@@ -1,0 +1,11 @@
+1.  click conversion for pyres
+
+2.  Paver -> pybuilder for pyres
+
+3.  link back to ctypes articles
+
+4.  copy of some of the django articles?
+
+5.  Thoughts on balancing refactoring and progress and safety
+
+
