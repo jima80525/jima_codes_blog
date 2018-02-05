@@ -1,0 +1,19 @@
+Until last fall I was working in python 2 (due to some limitations at work) and was very happy to have the Syntastic module in my vim configuration to flag error each time I save a py file.  This was great, especially after writing in C/C++ for years where there is no official standard format and really poor tools to enforce coding standards.
+
+Then, last fall, when I started on Django, I made the decision to move to Python 3.  I quickly discovered that pylint is very version-dependent and running the python2.7 version of pylint against Python3 code was not going to work.
+
+I wasn't particularly familiar with virtualenv at the time, so I gave up and moved on with other things at the time.  I finally got back to fixing this and thus getting pylint and flake8 running again on my code.
+
+Syntastic
+https://github.com/vim-syntastic/syntastic
+
+I won't cover the details of how to install Syntastic as it depends on how you manage your plugins in Vim and is well documented.  I will only point out here that Syntastic isn't a checker by itself, it's merely a plugin to run various checkers for you directly in Vim.  It run checkers for many languages, but I'm only using it for Python currently as the C code I use for work is so ugly that it will never pass.
+
+Switching versions
+
+The key to getting pylint to run against different versions of python is to not install pylint on a global level, but rather to install it in each virtualenv.  This seems obvious now that I'm more familiar with virtualenv.
+
+The other key to getting this to work is to only initiate Vim from inside the virtualenv.  This hampers my overall workflow a bit, as I tend to have gVim up and running for the long term and just add files in new tabs as I go.  To get pylint to work properly, I'll need to restart Vim when I switch python versions (at a minimum).  This shouldn't be too much of a problem, however, as I'm doing less and less python2x coding these days.
+
+
+

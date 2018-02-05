@@ -1,0 +1,42 @@
+As part of my playing with PyBuilder (mentioned in the last post), I decided to convert one of my old tools to use it and to convert to python3 at the same time.  While this was probably foolish (making two changes at once) it was educational in the long run.  I thought I'd share my learnings here.
+
+The first and most prevalent change was the change of print from a keyword to a function.  Trivial to fix and not worth discussing.
+
+The urllib2 library was modified and required changes to the imports of urlopen and URLError.  The queue import was changed to Queue, but otherwise worked as I was using it.
+
+There were a couple of places where mocks in the unit tests needed to be modified.  Looking at the changes I had to make, which were largely making the mocks specific to the module under test, I'm not sure how they worked in the old code.  The new way certainly looks more 'correct'.
+
+The final simple change was one I didn't expect.  Python 3 changed how comparison operators handle None as described here.  I'm sure I'm not the only person that had written code assuming None is always less than any string.
+http://stackoverflow.com/questions/12971631/sorting-list-by-an-attribute-that-can-be-none
+
+String vs buffer
+
+One change that took me a while to figure out was the buffer interface versus string.  I had read about this and thought I understood it, but I was stumped by why this line:
+
+title = title.replace("'", "''")
+
+It probably shouldn't have taken that long, but I'll admit it took me a while to see that the 'string', title, was being returned from the feedparser library and was actually not a string at all.  Adding a decode to this to make it a string worked just fine.
+
+title = title.decode('utf8').replace("'", "''")
+
+Note that I'm making a big assumption that the title will actually be encoded in utf8.  For the purposes of this program, that assumption is true, but it's not in general.  YMMV.
+
+
+Argparse
+
+This change caught me by surprise as well.  This is the only one of the issues I ran into that wasn't listed in the excellent "What's New in Python 3.0"
+article. https://docs.python.org/3/whatsnew/3.0.html
+
+The argparse module chnaged behavior between py2 and py3.  This looks like a bug, as shown here.
+http://bugs.python.org/issue9253#msg186387
+
+Apparently subparsers do not have the required property set by default.  The work-around, once you find it, is trivial, after adding a new subparser:
+    subparsers = parser.add_subparsers(help='commands', dest='command')
+you need to set its required property to True:
+    subparsers.required = True
+
+
+Next post (which might be a couple of weeks) will look at changes to the project to bring it into pybuilder and to have it take advantage of things I've learned since I originally wrote it (requirements.txt, etc).
+
+Til then, happy holidays!
+

@@ -1,0 +1,34 @@
+I'm doing a survey for build tools in python.  Now, before any of you say "make", be warned that I've been doing C and C++ programming for decades and even those project don't even use make anymore if they can help it.  There are way better tools than make, especially in python!
+
+Paver
+https://github.com/paver/paver
+
+I used paver on a previous project (link to pyres here)
+	https://github.com/jima80525/pyres
+	and thought it was OK but fairly verbose.  It was pretty easy to extend it and get it to do exactly what I wanted, however, so it worked just fine for that project. It doesn't look like there's too much activity on the project in github currently, but that may just mean it's stable.
+
+
+Scons, Waf
+http://scons.org/
+https://github.com/waf-project/waf
+
+I've looked into these in previous lives as a build tool for C++ projects.  They both seem a little heavy for what I'm doing here (but I'd entertain arguments to the contrary).
+
+
+Doit
+http://pydoit.org/
+
+This looked promising.  I like design and the documentation was pretty good.  It looks to be under active development.  The reason this isn't my front runner at this point is, oddly enough, its name.  "Doit" is a french verb, making it cumbersome to do google searches on.  This is just a little extra friction, I'll admit.  Given a wildly superior tool, I'd definitely put up with it, but this didn't stand out that much.
+
+Pybuilder
+
+http://pybuilder.github.io/
+
+This is the one I'm exploring for now.  It has an active develpment community with quick response times to issues.  The documentation is OK, but certainly could use some work.  It is not at all verbose.  Actually, I'd say it errs on the side of being "too magic" where it's hard to understand the "how" of what's going on.  But, it seems to do the things I need AND it has a project to do a django plugin.
+https://github.com/MirkoRossini/pybuilder_django_enhanced_plugin
+
+I haven't tested the plugin out as of yet, but it looks like it could be a good building block to get a good development system in place with unit tests, coverage reports (so you can play the 'coverage game') and some good packaging.
+
+
+If you've got a favorite or think I missed some important feature of one of the above tools, please let me know in the comments section!
+
