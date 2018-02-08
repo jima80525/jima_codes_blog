@@ -1,11 +1,10 @@
-1.  click conversion for pyres
-
-2.  Paver -> pybuilder for pyres
-
-3.  link back to ctypes articles
-
-4.  copy of some of the django articles?
-
-5.  Thoughts on balancing refactoring and progress and safety
+* pycafe?
+* C back to C++
+* series on "bad code"?
+* click conversion for pyres
+* experience with briefcase - quick help and "here's something you can do - we'll take anything"
+* teaching git and its oddities
+* copy of some of the django articles?
+* Thoughts on balancing refactoring and progress and safety
 
 
