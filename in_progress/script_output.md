@@ -13,7 +13,8 @@ The prompt-setting portion of the bashrc now looks something like this:
 ```bash
 if [ -z ${RUN_SCRIPT+x} ]; then 
    # general purpose prompt setting code here
-   # Also I call fortune and a few other things here that I don't want to run in script
+   # Also I call fortune and a few other things 
+   # that I don't want to run in script
 else
    PS1='[SCRIPT]\w: '
 fi
@@ -26,7 +27,7 @@ For those of you unfamiliar with the vagaries of setting prompts in bash, the `\
 
 Once I got the prompt figured out, I noticed that several commands colorize the output which generates special characters in the captured output.  While your normal terminal knows how to deal with these characters, it looks pretty goofy in the captured output.
 
-Doing a bit of "research" (a.k.a. Google), I found a quick perl script that will strip those characters out.  As I mentioned above, I want to set an environment varaible before I run script (and unset it when I'm done), so I was already thinking about creating a bash function to set that up.  This bash function is the perfect place to run this cleanup script on the output.  Here's what the function (which lives in my .bashrc) looks like:
+Doing a bit of "research" (a.k.a. Google), I found a quick Perl script that will strip those characters out.  As I mentioned above, I want to set an environment varaible before I run script (and unset it when I'm done), so I was already thinking about creating a bash function.  This function is the perfect place to run this cleanup script on the output.  Here's what the function (which lives in my .bashrc) looks like:
 
 ```bash
 function runscript { 
