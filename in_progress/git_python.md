@@ -1,16 +1,16 @@
 Have you ever been working on a project that 'used' to work, but after a change here, a little edit there, it no longer works and you aren't quite sure how to get it back?  Revision control systems can help you solve that and other related problems.  Git is one of the most popular revision control systems today.
-Revision control systems have been around since the early 70s
-
 
 If you're writing Python, you've probably heard about Git and Github.  In this tutorial, I'll walk you through what Git is, how to use it for your personal projects, and how to use it in conjunction with Github to work with others on larger projects.
 
-# what is git
+This article assumes you already have git installed on your system.  If you don't, the excellent 'Pro Git' book has a [section](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on how to do that.
+
+# What Is Git
 Git is a `distributed revision control system`. Let's break that down a bit and look at what that means.
 
-## revision control 
-A `revision control system` (RCS) is a set of tools that track the history of a file (or set of files, in our case) through history. This means that at any point, you can tell your RCS (Git) to save the state of your files.  Then you may continue to edit the files and store that state as well.  Saving the state is similar to creatig a "backup copy" of your working directory.  When using Git we refer to this saving of state as 'making a commit'. 
+## Revision Control 
+A `revision control system` (RCS) is a set of tools that track the history of a file (or set of files, in our case) through history. This means that at any point, you can tell your RCS (Git, in our case) to save the state of your files.  Then you may continue to edit the files and store that state as well.  Saving the state is similar to creatig a "backup copy" of your working directory.  When using Git we refer to this saving of state as 'making a commit'. 
 
-When you make a commit in git, you can (and should!) add a commit message that tells at a high level what changes you made in this commit.  Git can show you the history of all of the commits and their commit messages.  This provide a very handy history of what work you have done and can really help pinpoint when a bug creeped into the system (more on that later)
+When you make a commit in git, you can (and should!) add a commit message that tells at a high level what changes you made in this commit.  Git can show you the history of all of the commits and their commit messages.  This provide a very history of what work you have done and can really help pinpoint when a bug creeped into the system (more on that later)
 
 In addition to showing you the log of changes you've made, git also allows you to compare files between different commits.  And, as I mentioned earlier, git will allow you to return any file (or all files) to an earlier commit with little effort.
 
@@ -553,15 +553,32 @@ Git pull is simply the combination of two other commands.  First it does a fetch
 There are some limitations here.  Git won't let you even try to do a git pull if you have modified files on your local system (that can create too much of a mess).  If you have commits on your local branch and the remote also has new commits (this is called "the branches have diverged"), then the git merge portion of the pull will create a merge commit, just like we discussed above.  (For those of you that are reading closely, you can also have git do a rebase instead of a merge by doing `git pull -r`)
 
 ### Push
-As you probably have guessed, git push is just the opposite of git pull.  Well, almost the opposite.  Push sends the info about the branch you are pushing and asks the remote if it would like to update its version of that branch to match yours.  Generally this amounts to you pushing your new changes up to the server.  (there are a LOT of details and complexity here invovling exactly what a fast-forward commit is.  There is a fantastic write up if you're interesting [here](https://stackoverflow.com/a/26005964/6843734)) 
+As you probably have guessed, git push is just the opposite of git pull.  Well, almost the opposite.  Push sends the info about the branch you are pushing and asks the remote if it would like to update its version of that branch to match yours.  Generally this amounts to you pushing your new changes up to the server.  (there are a LOT of details and complexity here involving exactly what a fast-forward commit is.  There is a fantastic write up if you're interesting [here](https://stackoverflow.com/a/26005964/6843734)) 
 
 
 ## putting it all together - simple git workflow
 
 At this point we've reviewed several of the basic git commands and how you might use them.  I'll wrap up with a quick description of a possibly workflow in git.  This workflow assumes you are working on your local repo and have a remote repo to which you will push changes.  It assumes you've already cloned the repo.
 
-1 
+1. `git status` - make sure your current area is clean
+2. `git pull` - get the latest version from the remote.  This saves merging issues later
+3. edit your files and make your changes
+4. `git status` - find all files that are changed - make sure to watch untracked files, too!
+5. `git add [files]` - add the changed files to the staging area
+6. `git commit -m "message"` - make your new commit
+7. `git push origin [branch-name]` - push your changes up to the remote
 
+This is one of the more basic flows through the system.  There are many, many ways to use git, and you've just scratched the surface with this tutorial.  If you use vim or sublime as your editor, you might want to checkout these tutorials which will show you how to get plugins to integrate git into your editor:
+* [VIM and Python – A Match Made in Heaven](https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/)
+* [Setting Up Sublime Text 3 for Full Stack Python Development](https://realpython.com/blog/python/setting-up-sublime-text-3-for-full-stack-python-development/)
+
+If you'd like to take a deeper dive into Git, I can recommend these books:
+* The free, online [Pro Git](https://git-scm.com/book/en/v2) is a very handy reference
+* For those of you who like to read on paper, I found O'Reilly's [Version Control with Git](http://shop.oreilly.com/product/9780596520137.do) to be useful.
+
+{% alert %}
+NOTE: Never put confidential information into a public repository on github.  Passwords, API keys, and similar items do not belong committed to a repo.   Someone **will** find them eventually.
+{% endalert %}
 
 # Github
 ## Cloning an exiting repo
