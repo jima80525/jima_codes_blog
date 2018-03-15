@@ -1,21 +1,21 @@
 Have you ever been working on a project that 'used' to work, but after a change here, a little edit there, it no longer works and you aren't quite sure how to get it back?  Revision control systems can help you solve that and other related problems.  Git is one of the most popular revision control systems today.
 
-If you're writing Python, you've probably heard about Git and Github.  In this tutorial, I'll walk you through what Git is, how to use it for your personal projects, and how to use it in conjunction with Github to work with others on larger projects.
+In this tutorial, I'll walk you through what Git is, how to use it for your personal projects, and how to use it in conjunction with Github to work with others on larger projects.
 
 This article assumes you already have Git installed on your system.  If you don't, the excellent 'Pro Git' book has a [section](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on how to do that.
 
-# What Is Git
+## What Is Git
 Git is a `distributed revision control system`. Let's break that down a bit and look at what that means.
 
-## Revision Control 
-A `revision control system` (RCS) is a set of tools that track the history of a set of files through history. This means that at any point, you can tell your RCS (Git, in our case) to save the state of your files.  Then you may continue to edit the files and store that state as well.  Saving the state is similar to creatig a "backup copy" of your working directory.  When using Git we refer to this saving of state as 'making a commit'.
+### Revision Control 
+A `revision control system` (RCS) is a set of tools that track the history of a set of files. This means that at any point, you can tell your RCS (Git, in our case) to save the state of your files.  Then you may continue to edit the files and store that state as well.  Saving the state is similar to creatig a "backup copy" of your working directory.  When using Git we refer to this saving of state as 'making a commit'.
 
-When you make a commit in Git, you must add a commit message that tells at a high level what changes you made in this commit.  Git can show you the history of all of the commits and their commit messages.  This provides a useful history of what work you have done and can really help pinpoint when a bug creeped into the system.
+When you make a commit in Git, you add a commit message that tells at a high level what changes you made in this commit.  Git can show you the history of all of the commits and their commit messages.  This provides a useful history of what work you have done and can really help pinpoint when a bug crept into the system.
 
 In addition to showing you the log of changes you've made, Git also allows you to compare files between different commits.  And, as I mentioned earlier, Git will allow you to return any file (or all files) to an earlier commit with little effort.
 
-## Distributed Revision Control
-OK, so that's a 'revision control system', what's the 'distributed' part?  It's probably easiest to answer that by starting with a little history.  Early revision control systems worked by storing all of those commits locally on your hard drive.  This collection of commits is called a 'repository'. This solved the "I need to get back to where I was" problem, but didn't scale well for a team working on the same set of software.
+### Distributed Revision Control
+OK, so that's a 'revision control system', what's the 'distributed' part?  It's probably easiest to answer that by starting with a little history.  Early revision control systems worked by storing all of those commits locally on your hard drive.  This collection of commits is called a 'repository'. This solved the "I need to get back to where I was" problem, but didn't scale well for a team working on the same codebase.
 
 As larger groups started working (and networking became more common) RCSs changed to store the repository on a central server that was shared by many developers.  While this solved many problems, it also created new ones, like file locking.
 
@@ -24,7 +24,7 @@ Git, following the lead of a few other products, broke with that model.  Git doe
 That last paragraph can seem a little confusing at first, because there are a lot of developers who use Github as a 'central repository' from which everyone must pull.  This is true, but Git doesn't impose this, it's just convenient in some circumstances to have a central place to share the code.  The full responsitory is still stored on all local repos even when you use Github.
 
 # Basic Usage
-Now that we've talked in general about what Git is, let's run through an example and see it in action.  We'll start by just working with Git on our local machine.  Once we get the hang of that, then we'll add Github and explain how you can interact with it.
+Now that we've talked in general about what Git is, let's run through an example and see it in action.  We'll start by just working with Git on our local machine.  Once we get the hang of that, we'll add Github and explain how you can interact with it.
 
 ## Creating a New Repo
 To work with Git, you first need a repo to work in.  Creating one is simple, just use the `git init` command in a directory.  
@@ -45,7 +45,7 @@ Initial commit
 
 nothing to commit (create/copy files and use "git add" to track)
 ```
-This shows you a couple of bits of information: which branch you're on, `master` (we'll talk about branches later) and that you have 'nothing to commit'.  This last part means that there are no files in this repo that Git doesn't know about.  That's good, as we just created this directory.  
+This shows you a couple of bits of information: which branch you're on, `master` (we'll talk about branches later) and that you have 'nothing to commit'.  This last part means that there are no files in this directory that Git doesn't know about.  That's good, as we just created the directory.
 
 ## Adding a New File
 Now create a file that Git doesn't know.  With your favorite editor, create the file "hello.py" which just has a print statement in it.
@@ -111,7 +111,7 @@ At this point we need to stop our tutorial and have a quick chat about the stagi
 ## Aside: The Staging Area
 Unlike many revision control systems, Git has a 'staging area' (often referred to as 'the index'). The staging area is how Git keeps track of changes you want to be in your next commit.   When we ran `git add` above, we told Git that we wanted to move the new file 'hello.py' to the staging area.  This change was reflected in `git status`, the file went from the 'untracked' section to the 'to be committed' section of the output.  Note that the staging area reflects the exact contents of the file when you ran `git add`.  If you modify it again, the file will appear both in the 'staged' and 'unstaged' portions of the status output.
 
-At any point of working with a file in Git (assuming it's already been committed once), there are three versions of the file you can work with:
+At any point of working with a file in Git (assuming it's already been committed once), there can be three versions of the file you can work with:
 
 * the version on your hard drive that you are editing
 * a different version that Git has stored in your staging area
@@ -119,7 +119,7 @@ At any point of working with a file in Git (assuming it's already been committed
 
 All three of these can be different versions of the file.  Moving changes to the staging area and then committing them brings all of these versions back into sync.
 
-When I started with Git, I found the staging area a little confusing and a bit annoying, I'll admit.  It seemed that it added extra steps to the process without any benefits.  When you're first learning Git, that's actually true.  After a while, there are situations where you come to really appreciate having that functionality.  
+When I started with Git, I found the staging area a little confusing and a bit annoying, I'll admit.  It seemed that it added extra steps to the process without any benefits.  When you're first learning Git, that's actually true.  After a while, there are situations where you come to really appreciate having that functionality. Unfortunately, those situations are beyond the scope of this tutorial.
 
 If you're interested in more detailed info about the staging area, I can recommend [this blog post](https://alblue.bandlem.com/2011/10/git-tip-of-week-understanding-index.html).
 
@@ -242,7 +242,7 @@ That file is just a regular text file and can be added to you repo like any othe
 
 It's also possible to have a 'global' `.gitignore` file stored in your home directory.  This is very handy if your editor likes to leave temporary or backup files in the local directory.
 
-### Aside What is a 'SHA'?
+## Aside What is a 'SHA'?
 When Git stores things (files, directories, commits, etc) in your repo, it stores them in a complicated way involving a 'hash function'.  We don't need to go into the details here, but a hash function takes "something" (again, a file, a directory, etc) and produces a unique ID for that thing that is much shorter (20 bytes in our case).  These IDs are called "SHA"s in Git and, while they not guaranteed to be unique, for most practical applications they are.
 
 Git uses its hash algorithm to index **everything** in your repo.  Each file has a SHA that reflects the contents of that file. Each directory, in turn, is hashed.  If a file in that directory changes the SHA of the directory changes, too.
@@ -290,7 +290,7 @@ As you can see in the listing above, all of the commit messages are shown, in or
 
 ## Going Back In Time - Checking Out a Particular SHA
 
-Because Git remembers each commit you've made with it's SHA, you can tell Git to go to any of those locations and view the repo as it existed then.  Let's try that.
+Because Git remembers each commit you've made with it's SHA, you can tell Git to go to any of those commits and view the repo as it existed then.  Let's try that.
 
 ```console
 ~/tmp/example: git checkout 3749c07559cc2bf181e63f1a264c8615f7ca3524
@@ -310,25 +310,25 @@ HEAD is now at 67aaa16... added hello
 
 OK, so there's a LOT of information here that's confusing.  Let's start by defining some of those terms.  First off is `HEAD`.  
 
-`HEAD` is Git's name for whatever SHA you happen to be looking at at any time.  It does NOT mean what is on your filesystem or what is in your staging area.  So, if you've  edited a file, the version on your filesystem is different than the version in `HEAD` (and yes, it's ALL CAPS).
+`HEAD` is Git's name for whatever SHA you happen to be looking at at any time.  It does NOT mean what is on your filesystem or what is in your staging area.  It means what Git thinks you have checked out. So, if you've  edited a file, the version on your filesystem is different than the version in `HEAD` (and yes, HEAD is in ALL CAPS).
 
 Next up is 'branch'.  The easiest way to think about a branch is that it is a label on a SHA.  It has a few other properties that are useful, but for now, think of a branch as a SHA-label.  
 
 NOTE: that those of you that have worked with other revision control systems (I'm looking at you, Subversion) will have a very different idea of what a branch is.  Git treats branches differently and this is a good thing.
 
-Putting that together, 'detached HEAD' simply means that your HEAD is pointing to a SHA that does not have a branch (or label) associated with it.  Git very nicely tells you how to fix that situation.  There are times you want to do that, and there are times when you can work in that detached HEAD state just fine.  
+Putting that together, 'detached HEAD' simply means that your HEAD is pointing to a SHA that does not have a branch (or label) associated with it.  Git very nicely tells you how to fix that situation.  There are times you want to do that, and there are times when you can work in that detached HEAD state just fine.
 
-Getting back to our demo, if you look at the state of the system now, you can see that the `.gitignore` file is no longer present.  
+Getting back to our demo, if you look at the state of the system now, you can see that the `.gitignore` file is no longer present. We 'went back' to the state of the system before we made those changes.
 
-Alright.  Now, how do we get back to where we were?  There are two ways, one of which you should know already, `git checkout 49f8ed6ebf3ee8845282ffe62cc3d81e016419fa`.  This will take you back to the SHA you were at when you started moving around.  
+Alright.  Now, how do we get back to where we were?  There are two ways, one of which you should know already, `git checkout 49f8ed6`.  This will take you back to the SHA you were at when you started moving around.  
 
 NOTE: one odd thing, at least in my version of Git, is that it still gives you a 'detached HEAD' warning, even though you're back to the SHA associated with a branch.
 
-The other, and more common way of getting back is to check out the branch you were on. Git always starts you off with a branch called `master`.  We'll learn how to make other branches later but for now we'll stick with `master`.  To get back to where you where, you can simply do `git checkout master`.  This will return you to the latest SHA committed to the `master' branch, which in our case has the commit message "created .gitignore".
+The other, and more common way of getting back is to check out the branch you were on. Git always starts you off with a branch called `master`.  We'll learn how to make other branches later but for now we'll stick with `master`.  To get back to where you where, you can simply do `git checkout master`.  This will return you to the latest SHA committed to the `master` branch, which in our case has the commit message "created .gitignore".  Put another way, `git checkout master` tells git to made HEAD point to the SHA marked by the label, or branch, `master`.
 
 Note that there are several methods for specifying a specific commit.  The SHA is probably the easiest to understand.  The other methods use different symbols and names to specify how to get to a specific commit from a known place, like HEAD.  I won't be going into those details in this tutorial, but if you'd like more details you can find them [here](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection).
 
-# Branching Basics
+## Branching Basics
 
 Let's talk a little more about branches.  Branches provide a way for you to keep separate streams of development apart.  While this can be useful when you're working alone, it's almost essential when you're working on team.  Imagine I'm working in a small team and I've got a feature to add to the project.  While I'm working on it, I don't want to add my changes to `master` as it still doesn't work correctly and might mess up my team members. I could just wait to commit the changes until I'm completely finished, but that's not very safe and not always practical. So, instead of working on `master`, I'll create a new branch: 
 
@@ -339,7 +339,7 @@ Switched to a new branch 'my_new_feature'
 On branch my_new_feature
 nothing to commit, working directory clean
 ```
-We used the `-b` option on the checkout command to tell Git we wanted it to create a new branch.  As you can see above, running `git status` in our branch shows us that the branch name has, indeed, changed.   Let's look at the log.
+We used the `-b` option on the `checkout` command to tell Git we wanted it to create a new branch.  As you can see above, running `git status` in our branch shows us that the branch name has, indeed, changed.   Let's look at the log.
 
 ```console
 ~/tmp/example: git log
@@ -411,7 +411,7 @@ Starting on the fourth line, it starts showing commits that are in one branch bu
 
 Finally, the last line of the output shows the first common commit for the two branches.  
 
-This example is pretty easy. Let's make it more interesting.  Add a few more commits to 'my_new_feature' and a few to 'master'
+This example is pretty easy. To make a better example, I've made it more interesting by adding a few more commits to 'my_new_feature' and a few to 'master'
 ```console
 ~/tmp/example $ git show-branch my_new_feature master
 * [my_new_feature] commit 4
@@ -441,7 +441,7 @@ Now you've got a branch with a bunch of different commits on it.  You finally fi
 
 There are three main ways to get commits from one branch to another: merging, rebasing, and cherry-picking.  We'll cover each of these in turn in the next sections.
 
-## Merging
+### Merging
 Merging is the simplest of the three to understand and to use.  When you do a merge, Git will create a new commit that combines the top SHAs of two branches if it needs to.  If all of the commits in the other branch are 'ahead' (based on) the top of the current branch, it will just do a 'fast-foward merge' and place those new commits on this branch.  
 
 Let's back up to the point where our show-branch output looked like this:
@@ -478,18 +478,18 @@ Author: Jim Anderson <jima80525@gmail.com>
 Date:   Thu Mar 8 20:57:42 2018 -0700
 
     created .gitignore
-
+[rest of log truncated]
 ```
 If we had made changes to master before we merged, Git would have created a new commit which was the combination of the changes from the two branches. 
 
 One of the things Git is fairly good at is understanding the common ancestors of different branches and automatically merging changes together.  If the same section of code has been modified in both branches, Git can't figure out what to do.  When this happens, it stops the merge part-way through and gives you instructions how to fix the issue.  This is called a 'merge conflict'.
 
-## Rebasing
+### Rebasing
 Rebasing is similar to merging, but behaves a little differently.  In a merge, if both branches have changes, a new 'merge commit' is created.  In rebasing, Git will take the commits from one branch and 'replay' them, one at a time, on the top of the other branch.
 
 I won't do an explicit demo of rebasing here because setting up a demo to show this is a bit tricky in text *and* there is an excellent web page I'll reference at the end of this section that covers the topic graphically and explains it quite well.
 
-## Cherry-picking
+### Cherry-picking
 Cherry picking is another method for moving commits from one branch to another.  Unlike merging and rebasing, though, in cherry-picking you specify exactly which commits you mean.  The easiest form of this is just specifying a single SHA:
 ```console
 git cherry-pick 4a4f4492ded256aa7b29bf5176a17f9eda66efbb
@@ -506,6 +506,7 @@ I can't leave this topic without recommending an excellent resource for learning
 ## Working with Remote Repos
 ----------------------------------------------------------
 All of the commands we've discussed to this point work only with your local repo.  They don't do any communication to a server or over the network.  It turns out that there are only four major Git commands which actually talk to remote repos:
+
 * clone
 * fetch
 * pull
@@ -536,9 +537,11 @@ When you create a new branch and the name matches an existing branch on the serv
 So, now that you know about the `remotes/origin` branches, understanding `git fetch` is pretty easy.  All fetch does is to update all of the `remotes/origin` branches.  It does not modify any of your local branches, just the branches stored in `remotes/origin`.
 
 ### Pull
-Git pull is simply the combination of two other commands.  First it does a fetch to update the `remotes/origin` branches.  Then, if the branch you are on is tracking a remote branch, it does a `git merge` of the corresponding `remote/origin` branch to your branch.  For example, say you were on the my_new_feature branch and your coworker had just added some code to it on the server.  If you do a `git pull`, Git will update ALL of the `remotes/origin` branches and then do a `git merge remotes/origin/my_new_feature` which will get the new commit onto the branch you're on!
+Git pull is simply the combination of two other commands.  First it does a `git fetch` to update the `remotes/origin` branches.  Then, if the branch you are on is tracking a remote branch, it does a `git merge` of the corresponding `remote/origin` branch to your branch.  
 
-There are some limitations here.  Git won't let you even try to do a `git pull` if you have modified files on your local system (that can create too much of a mess).  If you have commits on your local branch and the remote also has new commits (this is called "the branches have diverged"), then the `git merge` portion of the pull will create a merge commit, just like we discussed above.  (For those of you that are reading closely, you can also have Git do a rebase instead of a merge by doing `git pull -r`)
+For example, say you were on the my_new_feature branch and your coworker had just added some code to it on the server.  If you do a `git pull`, Git will update ALL of the `remotes/origin` branches and then do a `git merge remotes/origin/my_new_feature` which will get the new commit onto the branch you're on!
+
+There are, of course, some limitations here.  Git won't let you even try to do a `git pull` if you have modified files on your local system (that can create too much of a mess).  If you have commits on your local branch and the remote also has new commits (this is called "the branches have diverged"), then the `git merge` portion of the pull will create a merge commit, just like we discussed above.  (For those of you that are reading closely, you can also have Git do a rebase instead of a merge by doing `git pull -r`)
 
 ### Push
 As you probably have guessed, `git push` is just the opposite of `git pull`.  Well, almost the opposite.  Push sends the info about the branch you are pushing and asks the remote if it would like to update its version of that branch to match yours.  Generally this amounts to you pushing your new changes up to the server.  (there are a LOT of details and complexity here involving exactly what a fast-forward commit is.  There is a fantastic write up if you're interesting [here](https://stackoverflow.com/a/26005964/6843734)).  The basics gist of it is that `git push` makes your new commits available on the remote server.
@@ -546,21 +549,23 @@ As you probably have guessed, `git push` is just the opposite of `git pull`.  We
 
 ## Putting it All Together - Simple Git Workflow
 
-At this point we've reviewed several of the basic Git commands and how you might use them.  I'll wrap up with a quick description of a possibly workflow in Git.  This workflow assumes you are working on your local repo and have a remote repo to which you will push changes.  It assumes you've already cloned the repo.
+At this point we've reviewed several of the basic Git commands and how you might use them.  I'll wrap up with a quick description of a possibly workflow in Git.  This workflow assumes you are working on your local repo and have a remote repo to which you will push changes (it can be Github, but it will work the same with other remote repos).  It assumes you've already cloned the repo.
 
 1. `git status` - make sure your current area is clean
 2. `git pull` - get the latest version from the remote.  This saves merging issues later
-3. edit your files and make your changes
+3. edit your files and make your changes - remember to run your linter and unit tests!
 4. `git status` - find all files that are changed - make sure to watch untracked files, too!
 5. `git add [files]` - add the changed files to the staging area
 6. `git commit -m "message"` - make your new commit
 7. `git push origin [branch-name]` - push your changes up to the remote
 
 This is one of the more basic flows through the system.  There are many, many ways to use Git, and you've just scratched the surface with this tutorial.  If you use Vim or Sublime as your editor, you might want to checkout these tutorials which will show you how to get plugins to integrate Git into your editor:
+
 * [VIM and Python – A Match Made in Heaven](https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/)
 * [Setting Up Sublime Text 3 for Full Stack Python Development](https://realpython.com/blog/python/setting-up-sublime-text-3-for-full-stack-python-development/)
 
 If you'd like to take a deeper dive into Git, I can recommend these books:
+
 * The free, online [Pro Git](https://git-scm.com/book/en/v2) is a very handy reference
 * For those of you who like to read on paper, I found O'Reilly's [Version Control with Git](http://shop.oreilly.com/product/9780596520137.do) to be useful.
 
