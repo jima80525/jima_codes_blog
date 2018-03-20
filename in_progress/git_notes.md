@@ -32,8 +32,8 @@ git diff and diff tool.  --cached - compare to head - compare between branches
 
 Feedback from dan
 
-General note: search bar on the site doesn't seem to work very well. 
-Another note: I can't believe I didn't think of this earlier, but there's a 'markdownlint' tool which catches several of the formatting issues you mentioned (missing blank lines around code blocks, etc).  Maybe you're already aware, but it worked fairly well. 
+General note: search bar on the site doesn't seem to work very well.
+Another note: I can't believe I didn't think of this earlier, but there's a 'markdownlint' tool which catches several of the formatting issues you mentioned (missing blank lines around code blocks, etc).  Maybe you're already aware, but it worked fairly well.
 
 * remove path on console examples
    I'm totally with you on the syntax highlighting on the console blocks.  I've removed the
@@ -49,13 +49,13 @@ Another note: I can't believe I didn't think of this earlier, but there's a 'mar
    Thanks for catching this!  Fixed
 
 * HR - that was a leftover from original note taking
-   Oops!  Never intended that to be in final version.  
+   Oops!  Never intended that to be in final version.
 
 * Python in the opening section.  "working on your python project". maybe something else
    Is the Pep-8 reference good, or just awkward?
 
 * more detail on 'what we wll learn" second paragraph
-   Done. 
+   Done.
 
 * NO H1s
    Fixed.  Good catch.  I'll see if I can't add a new rule to the lint tool i'm using to catch this.
@@ -79,18 +79,21 @@ Another note: I can't believe I didn't think of this earlier, but there's a 'mar
 * add emacs tutorial to list of call outs.
    Fixed
 
-* fix bad linebreak in cherry-pick section 
+* fix bad linebreak in cherry-pick section
    Fixed this by using a shortened SHA
 
-* NOTE formatting use ** and uppercase properly and block quote 
+* NOTE formatting use ** and uppercase properly and block quote
    Fixed.  THANKS!  that is SO much better than what I had!
 
 * make clone, fetch etc, monospace with `
-* QUICK TIP of something like that Headline to section on learn git branching double quotes
-* figures for "going back in time" section?  Maybe a screenshot
+   Fixed
 
-* split up push section - look for other long paragraphes
-* first paragraph of staging - break into two
-* maybe make some of the longer paragraphs shorter
+* QUICK TIP of something like that Headline to section on learn git branching double quotes
+   Added a headline that hopefully makes sense.
+
+* several comments about splitting sections that are too long
+   I broke up the longest ones.  Let me know if there are ones that still seem too long.
+
+* figures for "going back in time" section?  Maybe a screenshot
 
 

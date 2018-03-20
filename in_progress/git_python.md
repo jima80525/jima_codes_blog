@@ -119,7 +119,9 @@ At this point we need to stop our tutorial and have a quick chat about the stagi
 
 ## Aside: The Staging Area
 
-Unlike many revision control systems, Git has a *staging area* (often referred to as *the index*). The staging area is how Git keeps track of changes you want to be in your next commit.   When we ran `git add` above, we told Git that we wanted to move the new file `hello.py` to the staging area.  This change was reflected in `git status`, the file went from the *untracked* section to the *to be committed* section of the output.  Note that the staging area reflects the exact contents of the file when you ran `git add`.  If you modify it again, the file will appear both in the *staged* and *unstaged* portions of the status output.
+Unlike many revision control systems, Git has a *staging area* (often referred to as *the index*). The staging area is how Git keeps track of changes you want to be in your next commit.   When we ran `git add` above, we told Git that we wanted to move the new file `hello.py` to the staging area.  This change was reflected in `git status`, the file went from the *untracked* section to the *to be committed* section of the output.
+
+Note that the staging area reflects the exact contents of the file when you ran `git add`.  If you modify it again, the file will appear both in the *staged* and *unstaged* portions of the status output.
 
 At any point of working with a file in Git (assuming it's already been committed once), there can be three versions of the file you can work with:
 
@@ -166,7 +168,7 @@ $ ls
 hello.py  myname.py  __pycache__
 ```
 
-Now if you run `git status`, you'll see that directory in the *untracked* section.  Also note that your new `myname.py` file is untracked while the changes you made to `hello.py` are in a new section called "Changes not staged for commit".  This just means that those changes have not yet been added to the staging area.  Let's try it out: 
+Now if you run `git status`, you'll see that directory in the *untracked* section.  Also note that your new `myname.py` file is untracked while the changes you made to `hello.py` are in a new section called "Changes not staged for commit".  This just means that those changes have not yet been added to the staging area.  Let's try it out:
 
 ```console
 $ git status
@@ -274,19 +276,21 @@ env
 
 ## What **NOT** to Add to a Git Repo
 
-When you first start working with any revision control tool, especially Git, you might be tempted to put **everything** into the repo. This is generally a mistake. There are limitations to Git and security concerns that force you to limit which types of information to the repo.  
+When you first start working with any revision control tool, especially Git, you might be tempted to put **everything** into the repo. This is generally a mistake. There are limitations to Git and security concerns that force you to limit which types of information to the repo.
 
-Let's start with the basic *rule of thumb* about **all** revision control systems.  
+Let's start with the basic *rule of thumb* about **all** revision control systems.
 
 > Only put *source* files into revision control, never *generated* files.
 
-In this context, a *source* file is any file you create, usually by typing in an editor.  A *generated* file is something that the computer creates, usually by processing a *source* file.  For example, `hello.py` is a *source* file, `hello.pyc` would be a *generated* file. 
+In this context, a *source* file is any file you create, usually by typing in an editor.  A *generated* file is something that the computer creates, usually by processing a *source* file.  For example, `hello.py` is a *source* file, `hello.pyc` would be a *generated* file.
 
 There are two reasons for not including generated files in the repo.  The first is that doing so is a waste of time and space.  The generated files can be recreated at any time and may need to be created in a different form.  If someone is using Jython or IronPython while you're using the Cython interpreter, the `.pyc` files might be quite different. Committing one particular flavor of files can cause conflict
 
 The second reason for not storing generated files is that frequently these files are larger than the original source files.  Putting them in the repo means that everyone now needs to download and store those generated files, even if they're not using them.
 
-This second point leads to another general rule about Git repos: commit binary files with caution and strongly avoid committing large files.  This rule has a lot to do with how Git works.  Git does not store a full copy of each version of each file you commit.  Rather, it uses a complicated algorithm based on the differences between subsequent versions of a file to greatly reduce the amount of storage it needs.  Binary files (like JPGs or MP3 files) don't really have good diff tools, meaning that Git will frequently just need to store the entire file each time it is committed. 
+This second point leads to another general rule about Git repos: commit binary files with caution and strongly avoid committing large files.  This rule has a lot to do with how Git works.
+
+Git does not store a full copy of each version of each file you commit.  Rather, it uses a complicated algorithm based on the differences between subsequent versions of a file to greatly reduce the amount of storage it needs.  Binary files (like JPGs or MP3 files) don't really have good diff tools, meaning that Git will frequently just need to store the entire file each time it is committed.
 
 A final point about Git, especially when we get to the section on Github, **never** put confidential information into a repo, especially one you might share publicly.  This is so important, I'm going to say it again:
 
@@ -294,10 +298,9 @@ A final point about Git, especially when we get to the section on Github, **neve
 Never put confidential information into a public repository on Github.  Passwords, API keys, and similar items do not belong committed to a repo.   Someone **will** find them eventually.
 {% endalert %}
 
-
 ## Aside: What is a *SHA*
 
-When Git stores things (files, directories, commits, etc) in your repo, it stores them in a complicated way involving a *hash function*.  We don't need to go into the details here, but a hash function takes "something" (again, a file, a directory, etc) and produces a unique ID for that thing that is much shorter (20 bytes in our case).  These IDs are called "SHA"s in Git and, while they not guaranteed to be unique, for most practical applications they are.
+When Git stores things (files, directories, commits, etc) in your repo, it stores them in a complicated way involving a *hash function*.  We don't need to go into the details here, but a hash function takes a "thing" and produces a unique ID for that thing that is much shorter (20 bytes in our case).  These IDs are called "SHA"s in Git which are not guaranteed to be unique, but for most practical applications they are.
 
 Git uses its hash algorithm to index **everything** in your repo.  Each file has a SHA that reflects the contents of that file. Each directory, in turn, is hashed.  If a file in that directory changes the SHA of the directory changes, too.
 
@@ -351,8 +354,8 @@ As you can see in the listing above, all of the commit messages are shown, in or
 Because Git remembers each commit you've made with it's SHA, you can tell Git to go to any of those commits and view the repo as it existed then.  Let's try that:
 
 ```console
-: git checkout 3749c07559cc2bf181e63f1a264c8615f7ca3524
-Note: checking out '3749c07559cc2bf181e63f1a264c8615f7ca3524'.
+: git checkout 946b99bfe1641102d39f95616ceaab5c3dc960f9
+Note: checking out '946b99bfe1641102d39f95616ceaab5c3dc960f9'.
 
 You are in 'detached HEAD' state. You can look around, make experimental
 changes and commit them, and you can discard any commits you make in this
@@ -382,13 +385,19 @@ Alright.  Now, how do we get back to where we were?  There are two ways, one of 
 
 > **Note:** One odd thing, at least in my version of Git, is that it still gives you a *detached HEAD* warning, even though you're back to the SHA associated with a branch.
 
-The other, and more common way of getting back is to check out the branch you were on. Git always starts you off with a branch called `master`.  We'll learn how to make other branches later but for now we'll stick with `master`.  To get back to where you where, you can simply do `git checkout master`.  This will return you to the latest SHA committed to the `master` branch, which in our case has the commit message "created .gitignore".  Put another way, `git checkout master` tells git to made HEAD point to the SHA marked by the label, or branch, `master`.
+The other, and more common way of getting back is to check out the branch you were on. Git always starts you off with a branch called `master`.  We'll learn how to make other branches later but for now we'll stick with `master`.
+
+To get back to where you where, you can simply do `git checkout master`.  This will return you to the latest SHA committed to the `master` branch, which in our case has the commit message "created .gitignore".  Put another way, `git checkout master` tells git to made HEAD point to the SHA marked by the label, or branch, `master`.
 
 Note that there are several methods for specifying a specific commit.  The SHA is probably the easiest to understand.  The other methods use different symbols and names to specify how to get to a specific commit from a known place, like HEAD.  I won't be going into those details in this tutorial, but if you'd like more details you can find them [here](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection).
 
 ## Branching Basics
 
-Let's talk a little more about branches.  Branches provide a way for you to keep separate streams of development apart.  While this can be useful when you're working alone, it's almost essential when you're working on team.  Imagine I'm working in a small team and I've got a feature to add to the project.  While I'm working on it, I don't want to add my changes to `master` as it still doesn't work correctly and might mess up my team members. I could just wait to commit the changes until I'm completely finished, but that's not very safe and not always practical. So, instead of working on `master`, I'll create a new branch:
+Let's talk a little more about branches.  Branches provide a way for you to keep separate streams of development apart.  While this can be useful when you're working alone, it's almost essential when you're working on team.
+
+Imagine I'm working in a small team and I've got a feature to add to the project.  While I'm working on it, I don't want to add my changes to `master` as it still doesn't work correctly and might mess up my team members.
+
+I could just wait to commit the changes until I'm completely finished, but that's not very safe and not always practical. So, instead of working on `master`, I'll create a new branch:
 
 ```console
 : git checkout -b my_new_feature
@@ -576,27 +585,27 @@ This tells Git to take the changes that went into `4a4f449` and apply them to th
 This feature can be very handy when you just want a particular change on your branch, but not the entire branch that change was made on.
 
 {% alert %}
-I can't leave this topic without recommending an excellent resource for learning about Git branches.  The [Learn Git Branching](https://learngitbranching.js.org/) website provides a set of exercises using a Git-like language and graphical representations of commits and branches to clearly explain the difference between merging, rebasing, and cherry-picking (along with a few other topics).  I **highly** recommend spending some time working through these exercises.
+**Quick Tip About Branching** I can't leave this topic without recommending an excellent resource for learning about Git branches.  [Learn Git Branching](https://learngitbranching.js.org/) has a set of exercises using graphical representations of commits and branches to clearly explain the difference between merging, rebasing, and cherry-picking.  I **highly** recommend spending some time working through these exercises.
 {% endalert %}
 
 ## Working with Remote Repos
 
 All of the commands we've discussed to this point work only with your local repo.  They don't do any communication to a server or over the network.  It turns out that there are only four major Git commands which actually talk to remote repos:
 
-* clone
-* fetch
-* pull
-* push
+* `clone`
+* `fetch`
+* `pull`
+* `push`
 
 That's it.  Everything else is done on your local machine.  (OK, to be complete, there *are* other commands that talk to remotes, but they're don't fall into the *basic* category.)
 
 Let's look at each of these commands in turn.
 
-### Clone
+### `Clone`
 
-Git clone is the command you use when you have the address of a known repository and you want to make a local copy.  For this example let's use a small repo I have on my Github account, github-playground.
+Git `clone` is the command you use when you have the address of a known repository and you want to make a local copy.  For this example let's use a small repo I have on my Github account, github-playground.
 
-The Github page for that repo lives [here](https://github.com/jima80525/github-playground).  On that page you will find a "Clone or Download" button which gives you the URI to use with the `git clone` command.  If you copy that, you can then clone the repo with:
+The Github page for that repo lives [here](https://github.com/jima80525/github-playground).  On that page you will find a "Clone or Download" button which gives you the URI to use with the `git clone` command.  If you copy that, you can then `clone` the repo with:
 
 ```console
 git clone git@github.com:jima80525/github-playground.git
@@ -606,31 +615,43 @@ Now you have a complete repository of that project on your local machine.  This 
 
 If you want to play with the other remote commands, you should create a new repo on Github and follow the same steps.  You are welcome to fork the `github-playground` repo to your account and use that.  Forking on Github is done by clicking the "fork" button in the UI.
 
-### Fetch
+### `Fetch`
 
-To explain the fetch command clearly, we need to take a step back and talk about how Git manages the relationship between your local repo and a remote repo.  This next part is background and, while it's not something you'll use on a day-to-day basis, it will make the difference between `fetch` and `pull` make more sense.
+To explain the `fetch` command clearly, we need to take a step back and talk about how Git manages the relationship between your local repo and a remote repo.  This next part is background and, while it's not something you'll use on a day-to-day basis, it will make the difference between `fetch` and `pull` make more sense.
 
-When you clone a new repo, Git doesn't just copy down a single version of the files in that project.  It copies the entire repository and uses that to create a new repository on your local machine.  Git does not make local branches for you except for master.  However it does keep track of the branches that were on the server.  To do that, Git creates a set of branches that all start with `remotes/origin/<branch_name>`.  You rarely (almost never) will check these out, but it's handy to know that they are there.  Remember every branch that existed on the remote *when you cloned the repo* will have a branch in `remotes/origin`.
+When you `clone` a new repo, Git doesn't just copy down a single version of the files in that project.  It copies the entire repository and uses that to create a new repository on your local machine.
 
-When you create a new branch and the name matches an existing branch on the server, Git will mark you local branch as a *tracking branch* that is associated with a remote branch.  We'll see how that is useful when we get to pull.
+Git does not make local branches for you except for master.  However it does keep track of the branches that were on the server.  To do that, Git creates a set of branches that all start with `remotes/origin/<branch_name>`.
 
-So, now that you know about the `remotes/origin` branches, understanding `git fetch` is pretty easy.  All fetch does is to update all of the `remotes/origin` branches.  It does not modify any of your local branches, just the branches stored in `remotes/origin`.
+You rarely (almost never) will check out these `remotes/origin` branches, but it's handy to know that they are there.  Remember every branch that existed on the remote *when you cloned the repo* will have a branch in `remotes/origin`.
 
-### Pull
+When you create a new branch and the name matches an existing branch on the server, Git will mark you local branch as a *tracking branch* that is associated with a remote branch.  We'll see how that is useful when we get to `pull`.
 
-Git pull is simply the combination of two other commands.  First it does a `git fetch` to update the `remotes/origin` branches.  Then, if the branch you are on is tracking a remote branch, it does a `git merge` of the corresponding `remote/origin` branch to your branch.
+So, now that you know about the `remotes/origin` branches, understanding `git fetch` is pretty easy.  All `fetch` does is to update all of the `remotes/origin` branches.  It does not modify any of your local branches, just the branches stored in `remotes/origin`.
+
+### `Pull`
+
+`Git pull` is simply the combination of two other commands.  First it does a `git fetch` to update the `remotes/origin` branches.  Then, if the branch you are on is tracking a remote branch, it does a `git merge` of the corresponding `remote/origin` branch to your branch.
 
 For example, say you were on the my_new_feature branch and your coworker had just added some code to it on the server.  If you do a `git pull`, Git will update ALL of the `remotes/origin` branches and then do a `git merge remotes/origin/my_new_feature` which will get the new commit onto the branch you're on!
 
-There are, of course, some limitations here.  Git won't let you even try to do a `git pull` if you have modified files on your local system (that can create too much of a mess).  If you have commits on your local branch and the remote also has new commits (this is called "the branches have diverged"), then the `git merge` portion of the pull will create a merge commit, just like we discussed above.  (For those of you that are reading closely, you can also have Git do a rebase instead of a merge by doing `git pull -r`)
+There are, of course, some limitations here.  Git won't let you even try to do a `git pull` if you have modified files on your local system (that can create too much of a mess).
 
-### Push
+If you have commits on your local branch and the remote also has new commits (known as "the branches have diverged"), then the `git merge` portion of the `pull` will create a merge commit, just like we discussed above.
 
-As you probably have guessed, `git push` is just the opposite of `git pull`.  Well, almost the opposite.  Push sends the info about the branch you are pushing and asks the remote if it would like to update its version of that branch to match yours.  Generally this amounts to you pushing your new changes up to the server.  (there are a LOT of details and complexity here involving exactly what a fast-forward commit is.  There is a fantastic write up if you're interesting [here](https://stackoverflow.com/a/26005964/6843734)).  The basics gist of it is that `git push` makes your new commits available on the remote server.
+For those of you that are reading closely, you can also have Git do a rebase instead of a merge by doing `git pull -r`.
+
+### `Push`
+
+As you probably have guessed, `git push` is just the opposite of `git pull`.  Well, almost the opposite. `Push` sends the info about the branch you are pushing and asks the remote if it would like to update its version of that branch to match yours.
+
+Generally this amounts to you pushing your new changes up to the server.  (there are a LOT of details and complexity here involving exactly what a fast-forward commit is.
+
+There is a fantastic write up if you're interesting [here](https://stackoverflow.com/a/26005964/6843734)).  The basics gist of it is that `git push` makes your new commits available on the remote server.
 
 ## Putting it All Together - Simple Git Workflow
 
-At this point we've reviewed several of the basic Git commands and how you might use them.  I'll wrap up with a quick description of a possibly workflow in Git.  This workflow assumes you are working on your local repo and have a remote repo to which you will push changes (it can be Github, but it will work the same with other remote repos).  It assumes you've already cloned the repo.
+At this point we've reviewed several of the basic Git commands and how you might use them.  I'll wrap up with a quick description of a possibly workflow in Git.  This workflow assumes you are working on your local repo and have a remote repo to which you will `push` changes (it can be Github, but it will work the same with other remote repos).  It assumes you've already cloned the repo.
 
 1. `git status` - make sure your current area is clean
 1. `git pull` - get the latest version from the remote.  This saves merging issues later
