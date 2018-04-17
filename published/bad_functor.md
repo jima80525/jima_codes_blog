@@ -52,3 +52,28 @@ To the team's credit, at least in this case the functor was immediately before t
 There are lots of reasons why code ends up like this, but the biggest one, in my opinion, is not having a strong code review culture where decisions like this are questioned.
 
 What do you think of this code? Am I completely missing the mark?
+
+## Update
+
+A different former-coworker read this and pointed out that I missed the ball by not including C++'s `lambda` functionality for this problem.  I've
+used lambdas in other languages, but my C++ was always limited to pre-C++11 before this, so the syntax was new to me.  Here's what the same function
+looks like with a lambda:
+
+[cpp]
+string lambdaGetPreset(const string& preset, PresetMap& myMap) {
+    auto it = find_if(myMap.begin(), myMap.end(),
+            [preset] (const pair<string, string>& ptz) {
+                return preset == ptz.second;
+            });
+    if (it != myMap.end()) {
+        return it->first;
+    }
+    return "";
+}
+[/cpp]
+
+I'll admit it still looks a bit odd to me, but that's mainly due to the lambda syntax being new.  I suspect once I get used to
+it, this will seem more reasonable to me.  I certainly wouldn't be thinking about changing it to make it more readable as I was with the original.
+
+Thanks to Erik for pointing out lambdas!
+
